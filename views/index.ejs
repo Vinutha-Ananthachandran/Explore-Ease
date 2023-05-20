@@ -1,0 +1,33 @@
+<div class="wrapper font-type text-white">
+  <div class="typing-demo">
+    <p class="mt-4">explore your next getaway.</p>
+  </div>
+</div>
+<form class="bg-dark bg-gradient ps-3 pe-3 rounded mx-auto w-50" >
+  <div class="pt-2 pb-2">
+    <label for="exploreEaseLocation" class="form-label text-warning">Destination <span class="text-danger">*</span></label>
+    <input type="text" class="form-control" id="exploreEaseLocation" placeholder="Going To.." required/>
+  </div>
+  <div class="form-check">
+    <label for="exploreEaseAutoDetect" class="form-label text-warning">Auto Detect My Location</label>
+    <input type="checkbox" class="form-check-input" id="exploreEaseAutoDetect" onclick="disable_req()"/>
+  </div>
+  <div class="pb-2 row">
+    <div class="col-6">
+      <label for="exploreEaseDeparture" class="form-label text-warning">Departing On <span class="text-danger">*</span></label>
+      <input type="date" class="form-control" id="exploreEaseDeparture" onclick="set_curr_dep_date()" required/>
+    </div>
+    <div class="col-6">
+      <label for="exploreEaseReturn" class="form-label text-warning">Returning On <span class="text-danger">*</span></label>
+      <input type="date" class="form-control" id="exploreEaseReturn" onclick="set_curr_ret_date()" required/>
+    </div>
+  </div>
+  <div class="pt-3 pb-3 text-center">
+    <a type="button" class="btn btn-primary rounded-pill" onclick="submit_form()" id="exploreEaseResults">Plan My Trip</a>
+    <button class="btn btn-primary rounded-pill" type="button" id="loader" style="display:none;" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      <span class="sr-only">Loading...</span>
+    </button>
+  </div>
+</form>
+<div class="my-5 py-1"></div>

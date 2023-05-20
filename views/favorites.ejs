@@ -1,0 +1,33 @@
+<div class="container-fluid text-center">
+  <% if(favorites.length == 0){ %>
+    <h6 class="text-warning pt-1 pb-1" >
+      No favorites to show
+    </h6>
+  <% }else { %>
+    <h2 class="text-white font-type">My Favorites</h2>
+    <div class="container-fluid bg-dark rounded w-75">
+      <table class="table py-5 table-fixed">
+        <% let rows = Math.ceil(favorites.length/4) %>
+        <% for(let i=0;i<rows;i++) { %>
+          <tr class="text-warning font-weight-normal">
+            <% for(let j=4*i;j<Math.min(4*i+4,favorites.length);j++){ %>
+              <% let tagid = 'exploreFavEmail'+j; %>
+              <td>
+                <p class="text-end ps-2 fs-1 hover-effect"><a id="<%= tagid %>" target="_blank" onclick="send_email('<%= tagid %>','<%= favorites[j].title %>','<%= favorites[j].venue %>','<%= favorites[j].url %>','<%= favorites[j].date.substring(0,10).split("-").reverse().join("-") %>')"><img src="../img/share.png" width="20" height=20/></a></p>
+                <div class="card bg-dark border border-secondary mx-auto max-ht" onclick="open_tab('<%= favorites[j].url %>')">
+                  <img class="card-img-top" alt="event-img" src=<%= favorites[j].image_url %>>
+                  <div class="card-body">
+                    <h6 class="card-text text-white text-center"><%= favorites[j].title %></h6>
+                    <p class="card-text text-warning">&#128204; <%= favorites[j].venue %></p>
+                    <p class="card-text text-warning">&#128198; <%= favorites[j].date.substring(0,10).split("-").reverse().join("-") %></p>
+                  </div>
+                </div>
+                <button class="btn btn-danger my-4" onclick="remove_from_favorites('<%= favorites[j].title %>,<%= favorites[j].date %>')">Remove From Favorites</button>
+              </td>
+            <% } %>
+          </tr>
+        <% } %>
+      </table>
+    </div>
+  <% } %>
+</div>

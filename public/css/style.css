@@ -1,0 +1,79 @@
+body{
+  background: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.45)) no-repeat fixed, url("../img/background.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+.fs-copy{
+  font-size: 0.6rem;
+}
+
+.font-type{
+  font-family: 'Dancing Script', cursive;
+}
+
+.wrapper{
+  display: grid;
+  place-items: center;
+}
+
+.typing-demo {
+  width: 15ch;
+  animation: typing 5.5s steps(22) infinite alternate, blink .5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 4rem;
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+}
+
+.nav-tabs .nav-item .nav-link{
+  color: #ffc107;
+}
+
+.nav-tabs .nav-item .nav-link.active {
+  color: black;
+  background-color: #ffc107;
+  border: none;
+}
+
+.pagination .page-item .page-link{
+  color: #ffc107;
+  background-color: black;
+}
+
+.pagination .page-item .page-link:hover {
+  color: black;
+  background-color: #ffc107;
+}
+
+.card:hover{
+  border-color: #ffc107 !important;
+  cursor: pointer;
+}
+
+.hover-effect:hover{
+  cursor: pointer;
+}
+
+.max-ht{
+  max-width:12rem;
+}
+
+.table-fixed{
+  table-layout:fixed;
+  width:100%;
+}
+
+.gmap{
+  width:350px;
+  height:350px;
+}
+
+.img-lg{
+  max-width:100px;
+  max-height:100px;
+}

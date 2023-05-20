@@ -1,0 +1,347 @@
+<h2 class="font-type text-white text-center"><%= header %></h2>
+<div class="bg-dark bg-gradient mx-auto rounded mt-2 tabs mb-5 w-75">
+  <ul class="nav nav-tabs border-dark" id="resTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="events-tab" data-bs-toggle="tab" data-bs-target="#events" type="button" role="tab" aria-controls="events" aria-selected="true">Explore Events</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="attractions-tab" data-bs-toggle="tab" data-bs-target="#attractions" type="button" role="tab" aria-controls="attractions" aria-selected="false">Explore Attractions</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="places-tab" data-bs-toggle="tab" data-bs-target="#places" type="button" role="tab" aria-controls="places" aria-selected="false">Explore Hotels</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="food-tab" data-bs-toggle="tab" data-bs-target="#food" type="button" role="tab" aria-controls="food" aria-selected="false">Explore Restaurants</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="events" role="tabpanel" aria-labelledby="events-tab">
+      <% if(interval == 0){ %>
+      <div class="mt-5 mb-5 text-center">
+        <p class="text-warning fs-6">No events within the selected date range</p>
+        <p>*</p>
+      </div>
+      <% }else{ %>
+      <table class="table table-dark table-fixed">
+        <% for(let c=0;c<interval;c++){ %>
+        <tr class="text-warning font-weight-normal">
+          <% for(let i=4*c;i<Math.min(4*c+4,sgresult.length);i++){ %>
+          <td>
+            <% let idname = 'favbutton'+i %>
+            <% let email_id = 'exploreEaseEmail'+i %>
+            <div class="text-end">
+              <p class="text-warning fs-2 hover-effect d-inline" id=<%= idname %> onclick="store_recommendations('<%= i %>,<%= sgresult[i].performers[0].image %>,<%= sgresult[i].title %>,<%= sgresult[i].venue.name %>,<%= sgresult[i].url %>,<%= sgresult[i].datetime_utc%>')">&#9825;</p>
+              <p class="d-inline ps-2 fs-1 hover-effect"><a target="_blank" onclick="send_email('<%= email_id%>','<%= sgresult[i].title %>','<%= sgresult[i].venue.name %>','<%= sgresult[i].url %>','<%= sgresult[i].datetime_utc.substring(0,10).split("-").reverse().join("-") %>')" id=<%= email_id %>><img src="../img/share.png" width="20" height=20/></a></p>
+            </div>
+            <div class="card bg-dark border border-secondary mx-auto max-ht" onclick="open_tab('<%= sgresult[i].url %>')">
+              <img class="card-img-top" alt="event-img" src=<%= sgresult[i].performers[0].image %>>
+              <div class="card-body">
+                <h6 class="card-text text-white text-center"><%= sgresult[i].title %></h6>
+                <p class="card-text text-warning">&#128204; <%= sgresult[i].venue.name %></p>
+                <p class="card-text text-warning">&#128198; <%= sgresult[i].datetime_utc.substring(0,10).split("-").reverse().join("-") %></p>
+              </div>
+            </div>
+            <div class="text-center">
+              <button class="btn btn-danger btn-fluid mt-2 mb-2 ps-4 pe-4" onclick="get_recommendations('<%= sgresult[i].id %>,<%= sgresult[i].venue.postal_code %>,<%= sgresult[i].datetime_utc.substring(0,10).split("-").reverse().join("-") %>')">View Similar</button>
+            </div>
+          </td>
+          <% } %>
+        </tr>
+        <% } %>
+      </table>
+      <p>*</p>
+      <% } %>
+    </div>
+    <div class="tab-pane fade table-responsive" id="attractions" role="tabpanel" aria-labelledby="attractions-tab">
+      <% if(attractions.length == 0){ %>
+        <div class="mt-5 mb-5 text-center">
+          <p class="text-warning fs-6">No data available for the specified location</p>
+          <p>*</p>
+        </div>
+      <% }else{ %>
+        <% for(let p=0;p<Math.ceil(attractions.length/5);p++){ %>
+          <% let tabname = 'paginationTable'+p; %>
+          <% if(p==0){ %>
+            <table class="mx-auto table border border-secondary mt-3 bg-dark" id=<%=tabname%>>
+              <% for(let g=0;g<Math.min(attractions.length,5);g++){ %>
+                <tr>
+                  <td class="text-center">
+                    <img class="img-fluid" alt="attractions-image" src=<%= attractions[g].image_url %> />
+                  </td>
+                  <td>
+                    <p class="text-white fs-4 text-center"><%= attractions[g].name %></p>
+                    <p class="text-white text-start">Address:</p>
+                    <p class="text-warning text-start"><%= attractions[g].address %></p>
+                    <p class="text-white text-start">Rating:</p>
+                    <% if(attractions[g].ratings != undefined){ %>
+                      <p class="text-warning text-start"><%= attractions[g].ratings %> <span class="text-white">by</span> <%= attractions[g].total_reviewers %> <span class="text-white">users</span></p>
+                    <% }else{ %>
+                      <p class="text-warning text-start">No Ratings Available</p>
+                    <% } %>
+                    <p class="text-white text-start d-inline">Visiting Hours:</p>
+                    <% if(attractions[g].open_now != undefined){ %>
+                      <% if(attractions[g].open_now.open_now == true){ %>
+                        <button class="btn btn-success btn-fluid text-start rounded-pill" disabled>Open Now</button>
+                      <% }else{ %>
+                        <button class="btn btn-fluid btn-danger text-start rounded-pill" disabled>Closed</button>
+                      <% } %>
+                    <% }else{ %>
+                      <p class="text-warning text-start">No data available</p>
+                    <% } %>
+                  </td>
+                </tr>
+              <% } %>
+            </table>
+          <% }else{ %>
+            <table class="mx-auto table border border-secondary mt-3 bg-dark d-none" id=<%=tabname%>>
+              <% for(let g=5*p;g<(5*p+Math.min(attractions.length,5));g++){ %>
+                <% if(g<attractions.length){ %>
+                  <tr>
+                    <td class="text-center">
+                      <img class="img-fluid" alt="attractions-image" src=<%= attractions[g].image_url %> />
+                    </td>
+                    <td>
+                      <p class="text-white fs-4 text-center"><%= attractions[g].name %></p>
+                      <p class="text-white text-start">Address:</p>
+                      <p class="text-warning text-start"><%= attractions[g].address %></p>
+                      <p class="text-white text-start">Rating:</p>
+                      <% if(attractions[g].ratings != undefined){ %>
+                        <p class="text-warning text-start"><%= attractions[g].ratings %> <span class="text-white">by</span> <%= attractions[g].total_reviewers %> <span class="text-white">users</span></p>
+                      <% }else{ %>
+                        <p class="text-warning text-start">No Ratings Available</p>
+                      <% } %>
+                      <p class="text-white text-start d-inline">Visiting Hours:</p>
+                      <% if(attractions[g].open_now != undefined){ %>
+                        <% if(attractions[g].open_now.open_now == true){ %>
+                          <button class="btn btn-success btn-fluid text-start rounded-pill" disabled>Open Now</button>
+                        <% }else{ %>
+                          <button class="btn btn-fluid btn-danger text-start rounded-pill" disabled>Closed</button>
+                        <% } %>
+                      <% }else{ %>
+                        <p class="text-warning text-start">No data available</p>
+                      <% } %>
+                    </td>
+                  </tr>
+                <% } %>
+              <% } %>
+            </table>
+          <% } %>
+        <% } %>
+      <% } %>
+      <nav aria-label="Events Page navigation">
+        <ul class="pagination justify-content-center hover-effect">
+          <li class="page-item"><a class="page-link" onclick="get_previous('<%= Math.ceil(attractions.length/5) %>')">Previous</a></li>
+          <% for(let j=1;j<=Math.ceil(attractions.length/5);j++){ %>
+            <% let li_id = 'paginationNavBar'+j; %>
+            <li class="page-item">
+              <a class="page-link" id=<%= li_id %> onclick="navigate_to_page('<%= j-1 %>','<%= Math.ceil(attractions.length/5) %>')"><%= j %></a>
+            </li>
+          <% } %>
+          <li class="page-item"><a class="page-link" onclick="get_next('<%= Math.ceil(attractions.length/5) %>')">Next</a></li>
+        </ul>
+      </nav>
+      <p>*</p>
+    </div>
+    <div class="tab-pane fade" id="places" role="tabpanel" aria-labelledby="places-tab">
+      <div id="exploreEaseCarousel" class="carousel slide" data-bs-touch="false" data-bs-interval="false">
+        <div class="carousel-inner">
+          <% let hlen = 0; %>
+          <% if(htresult != undefined){ %>
+            <% hlen = htresult.length %>
+          <% } %>
+          <% if(hlen == 0){ %>
+            <div class="mt-5 mb-5 text-center">
+              <p class="text-warning fs-6">No hotels available for the specified location</p>
+              <p>*</p>
+            </div>
+          <% }else{ %>
+            <% for(let i=0;i<hlen;i++){ %>
+            <% if(i==0){ %>
+            <div class="carousel-item active mt-1 mb-3 table-responsive">
+              <table class="mx-auto table w-75 table-borderless mt-3">
+                <tr>
+                  <td class="my-5 w-25">
+                    <img alt="mt-5 mb-5 img-fluid" width="250" height="300" src=<%= htresult[i].image_url %> />
+                  </td>
+                  <td class="my-5 w-75">
+                    <p class="text-warning mt-1 text-center fs-4"><%= htresult[i].name %></p>
+                    <p class="text-warning my-1 fs-5 ps-5 text-left">&#128204; Address</p>
+                    <p class="text-white my-1 ps-5 text-left"><%= htresult[i].location.address1 %> <%= htresult[i].location.address2 %> <%= htresult[i].location.address3 %> <%= htresult[i].location.city %>
+                      <%= htresult[i].location.state %>-<%= htresult[i].location.zip_code %> <%= htresult[i].location.country %></p>
+                    <p class="text-warning my-1 fs-5 fs-5 ps-5 text-left">&#9742; Display Phone</p>
+                    <p class="text-white my-1 ps-5 text-left"><%= htresult[i].display_phone %></p>
+                    <a type="button" target="_blank" class="btn btn-primary btn-fluid ms-5 mt-3 px-4" href="https://www.google.com/travel/search?q='<%= htresult[i].name %>'">Check Availability</a>
+                    <button class="btn btn-danger btn-fluid ms-5 mt-3 d-block" onclick="get_reviews('<%= htresult[i].id %>')">Check Hotel Reviews</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <% }else{ %>
+            <div class="carousel-item fs-4 mt-1 mb-3 table-responsive">
+              <table class="mx-auto table w-75 table-borderless mt-3">
+                <tr>
+                  <td class="my-5 w-25">
+                    <img alt="mt-5 mb-5 img-fluid" width="250" height="300" src=<%= htresult[i].image_url %> />
+                  </td>
+                  <td class="my-5 w-75">
+                    <p class="text-warning mt-1 text-center fs-4"><%= htresult[i].name %></p>
+                    <p class="text-warning my-1 fs-5 ps-5 text-left">&#128204; Address</p>
+                    <p class="text-white my-1 fs-6 ps-5 text-left"><%= htresult[i].location.address1 %> <%= htresult[i].location.address2 %> <%= htresult[i].location.address3 %> <%= htresult[i].location.city %>
+                      <%= htresult[i].location.state %>-<%= htresult[i].location.zip_code %> <%= htresult[i].location.country %></p>
+                    <p class="text-warning my-1 fs-5 fs-5 ps-5 text-left">&#9742; Display Phone</p>
+                    <p class="text-white my-1 fs-6 ps-5 text-left"><%= htresult[i].display_phone %></p>
+                    <a type="button" target="_blank" class="btn btn-primary btn-fluid ms-5 mt-3 px-4" href="https://www.google.com/travel/search?q='<%= htresult[i].name %>'">Check Availability</a>
+                    <button class="btn btn-danger btn-fluid ms-5 mt-3 d-block" onclick="get_reviews('<%= htresult[i].id %>')">Check Hotel Reviews</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <% } %>
+            <% } %>
+          <% } %>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#exploreEaseCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#exploreEaseCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+    <div class="tab-pane fade table-responsive" id="food" role="tabpanel" aria-labelledby="food-tab">
+      <table class="text-center table table-sm table-dark table-hover table-fixed">
+        <% let ylen = 0; %>
+        <% if(yresult != undefined){ %>
+          <% ylen = yresult.length %>
+        <% } %>
+        <% if(ylen == 0){ %>
+          <div class="mt-5 mb-5 text-center">
+            <p class="text-warning fs-6">No restaurants available for the specified location</p>
+            <p>*</p>
+          </div>
+        <% }else{ %>
+          <tr class="text-white">
+              <td>#</td>
+              <td>Image</td>
+              <td>Business Name</td>
+              <td>Rating</td>
+              <td>Price Range</td>
+              <td>Distance (miles)</td>
+              <td>Details</td>
+          </tr>
+          <% for(let i=0;i<ylen;i++){ %>
+          <tr class="text-warning font-weight-normal">
+            <td><%= i+1 %></td>
+            <td><img class="img-lg img-fluid" src=<%= yresult[i].image_url %>></td>
+            <td class="text-break"><%= yresult[i].name %></td>
+            <td><%= yresult[i].rating %></td>
+            <% if(Object.hasOwn(yresult[i],'price')){ %>
+            <td><%= yresult[i].price %></td>
+            <% }else{ %>
+            <td>N/A</td>
+            <% } %>
+            <td><%= (parseFloat(yresult[i].distance)/1609.344).toFixed(2) %></td>
+            <td>
+              <a target="_blank" type="button" class="btn btn-danger btn-fluid px-3" href=<%= yresult[i].url %>>View On Yelp</a>
+              <button class="btn btn-primary btn-fluid mt-2"
+                onclick="launch_quick_view('<%= yresult[i].location.address1 %>,<%= yresult[i].location.address2 %>,<%= yresult[i].location.address3 %>,<%= yresult[i].location.city %>,<%= yresult[i].location.state %>,<%= yresult[i].location.zip_code %>,<%= yresult[i].location.country %>,<%= yresult[i].coordinates.latitude %>,<%= yresult[i].coordinates.longitude %>')">Get
+                Directions</button>
+            </td>
+          </tr>
+          <% } %>
+        <% } %>
+      </table>
+    </div>
+  </div>
+</div>
+<div></div>
+<div class="modal fade" id="exploreEaseModel" tabindex="-1" role="dialog" aria-labelledby="exploreModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg-dark text-center">
+      <div class="modal-header">
+        <h5 class="modal-title text-warning" id="exploreModalLabel">Location Details:</h5>
+      </div>
+      <div class="modal-body">
+        <h6 class="text-warning">Address</h6>
+        <p class="text-white" id="exploreModelText"></p>
+        <h6 class="text-warning">Map</h6>
+        <div id="exploreEaseMap" class="mx-auto gmap"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exploreEaseRevModal" tabindex="-1" role="dialog" aria-labelledby="exploreRevModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title text-warning" id="exploreRevModalLabel">Customer Reviews:</h5>
+      </div>
+      <div class="modal-body">
+        <p class="text-white my-1" id="reviewer1"></p>
+        <p class="text-warning my-1" id="revRating1"></p>
+        <p class="text-white my-1" id="revTime1"></p>
+        <p class="text-warning my-1" id="review1"></p>
+        <hr class="mx-auto border" />
+        <p class="text-white my-1" id="reviewer2"></p>
+        <p class="text-warning my-1" id="revRating2"></p>
+        <p class="text-white my-1" id="revTime2"></p>
+        <p class="text-warning my-1" id="review2"></p>
+        <hr class="mx-auto border" />
+        <p class="text-white my-1" id="reviewer3"></p>
+        <p class="text-warning my-1" id="revRating3"></p>
+        <p class="text-white my-1" id="revTime3"></p>
+        <p class="text-warning my-1" id="review3"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="RecommendationModal" tabindex="-1" role="dialog" aria-labelledby="RecommendationModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title text-white" id="RecommendationModalLabel">You May Also Like:</h5>
+      </div>
+      <div class="modal-body">
+        <table class="table table-dark">
+          <tr class="text-warning font-weight-normal">
+            <td id="recomm_cell1">
+              <p class="card-text text-white text-center" id="recomm_score1"></p>
+              <div class="text-end">
+                <p class="d-inline text-warning fs-2 hover-effect" onclick="store_recommendations(1)" id="modalFavButton1">&#9825;</p>
+                <p class="d-inline ps-2 fs-1 hover-effect"><a target="_blank" onclick="send_recomm_email(1)" id="recomm_email1"><img src="../img/share.png" width="20" height=20/></a></p>
+              </div>
+              <div class="card bg-dark border border-secondary mx-auto max-ht" onclick="open_tab(1)">
+                <img class="card-img-top" id="recomm_img1" />
+                <div class="card-body">
+                  <h6 class="card-text text-white text-center" id="recomm_txt1"></h6>
+                  <p class="card-text text-warning" id="recomm_loc1"></p>
+                  <p class="card-text text-warning" id="recomm_dat1"></p>
+                  <p class="d-none" id="recomm_anc1"></p>
+                </div>
+              </div>
+            </td>
+            <td id="recomm_cell2">
+              <p class="card-text text-white text-center" id="recomm_score2"></p>
+              <div class="text-end">
+                <p class="d-inline text-warning fs-2 hover-effect" onclick="store_recommendations(2)" id="modalFavButton2">&#9825;</p>
+                <p class="d-inline ps-2 fs-1 hover-effect"><a target="_blank" onclick="send_recomm_email(2)" id="recomm_email2"><img src="../img/share.png" width="20" height=20/></a></p>
+              </div>
+              <div class="card bg-dark border border-secondary mx-auto max-ht" onclick="open_tab(2)">
+                  <img class="card-img-top" id="recomm_img2" />
+                  <div class="card-body">
+                    <h6 class="card-text text-white text-center" id="recomm_txt2"></h6>
+                    <p class="card-text text-warning" id="recomm_loc2"></p>
+                    <p class="card-text text-warning" id="recomm_dat2"></p>
+                    <p class="d-none" id="recomm_anc2"></p>
+                  </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`No favorites to show scenario test renders correctly 1`] = `
+"<div class="container-fluid text-center">
+  
+    <h6 class="text-warning pt-1 pb-1" >
+      No favorites to show
+    </h6>
+  
+</div>
+"
+`;
+
+exports[`When events are favorited renders correctly 1`] = `
+"<div class="container-fluid text-center">
+  
+    <h2 class="text-white font-type">My Favorites</h2>
+    <div class="container-fluid bg-dark rounded w-75">
+      <table class="table py-5 table-fixed">
+        
+        
+          <tr class="text-warning font-weight-normal">
+            
+              
+              <td>
+                <p class="text-end ps-2 fs-1 hover-effect"><a id="exploreFavEmail0" target="_blank" onclick="send_email('exploreFavEmail0','Cruel World Fest with Siouxsie  Iggy Pop  Billy Idol and more','Brookside at the Rose Bowl','https://seatgeek.com/cruel-world-fest-with-siouxsie-iggy-pop-billy-idol-and-more-tickets/pasadena-california-brookside-at-the-rose-bowl-2023-05-20-12-pm/music-festival/5922582','20-05-2023')"><img src="../img/share.png" width="20" height=20/></a></p>
+                <div class="card bg-dark border border-secondary mx-auto max-ht" onclick="open_tab('https://seatgeek.com/cruel-world-fest-with-siouxsie-iggy-pop-billy-idol-and-more-tickets/pasadena-california-brookside-at-the-rose-bowl-2023-05-20-12-pm/music-festival/5922582')">
+                  <img class="card-img-top" alt="event-img" src=https://seatgeek.com/images/performers-landscape/cruel-world-fest-1d31e3/787780/huge.jpg>
+                  <div class="card-body">
+                    <h6 class="card-text text-white text-center">Cruel World Fest with Siouxsie  Iggy Pop  Billy Idol and more</h6>
+                    <p class="card-text text-warning">&#128204; Brookside at the Rose Bowl</p>
+                    <p class="card-text text-warning">&#128198; 20-05-2023</p>
+                  </div>
+                </div>
+                <button class="btn btn-danger my-4" onclick="remove_from_favorites('Cruel World Fest with Siouxsie  Iggy Pop  Billy Idol and more,2023-05-20T19:00:00')">Remove From Favorites</button>
+              </td>
+            
+              
+              <td>
+                <p class="text-end ps-2 fs-1 hover-effect"><a id="exploreFavEmail1" target="_blank" onclick="send_email('exploreFavEmail1','Live Racing at Santa Anita Park','Santa Anita Park','https://seatgeek.com/live-racing-at-santa-anita-park-tickets/horse-racing/2023-05-20-12-pm/5921020','20-05-2023')"><img src="../img/share.png" width="20" height=20/></a></p>
+                <div class="card bg-dark border border-secondary mx-auto max-ht" onclick="open_tab('https://seatgeek.com/live-racing-at-santa-anita-park-tickets/horse-racing/2023-05-20-12-pm/5921020')">
+                  <img class="card-img-top" alt="event-img" src=https://seatgeek.com/images/performers-landscape/santa-anita-horse-racing-4d639a/374935/huge.jpg>
+                  <div class="card-body">
+                    <h6 class="card-text text-white text-center">Live Racing at Santa Anita Park</h6>
+                    <p class="card-text text-warning">&#128204; Santa Anita Park</p>
+                    <p class="card-text text-warning">&#128198; 20-05-2023</p>
+                  </div>
+                </div>
+                <button class="btn btn-danger my-4" onclick="remove_from_favorites('Live Racing at Santa Anita Park,2023-05-20T19:00:00')">Remove From Favorites</button>
+              </td>
+            
+              
+              <td>
+                <p class="text-end ps-2 fs-1 hover-effect"><a id="exploreFavEmail2" target="_blank" onclick="send_email('exploreFavEmail2','Pacific Tigers at Loyola Marymount Lions Baseball','Page Baseball Stadium','https://seatgeek.com/pacific-tigers-at-loyola-marymount-lions-baseball-tickets/ncaa-baseball/2023-05-20-1-pm/5969002','20-05-2023')"><img src="../img/share.png" width="20" height=20/></a></p>
+                <div class="card bg-dark border border-secondary mx-auto max-ht" onclick="open_tab('https://seatgeek.com/pacific-tigers-at-loyola-marymount-lions-baseball-tickets/ncaa-baseball/2023-05-20-1-pm/5969002')">
+                  <img class="card-img-top" alt="event-img" src=https://seatgeek.com/images/performers-landscape/loyola-marymount-lions-baseball-f5c80e/101714/huge.jpg>
+                  <div class="card-body">
+                    <h6 class="card-text text-white text-center">Pacific Tigers at Loyola Marymount Lions Baseball</h6>
+                    <p class="card-text text-warning">&#128204; Page Baseball Stadium</p>
+                    <p class="card-text text-warning">&#128198; 20-05-2023</p>
+                  </div>
+                </div>
+                <button class="btn btn-danger my-4" onclick="remove_from_favorites('Pacific Tigers at Loyola Marymount Lions Baseball,2023-05-20T20:00:00')">Remove From Favorites</button>
+              </td>
+            
+              
+              <td>
+                <p class="text-end ps-2 fs-1 hover-effect"><a id="exploreFavEmail3" target="_blank" onclick="send_email('exploreFavEmail3','The Texas Taco Tequila &amp; Music Festival (Saturday Pass)','Central Park - Santa Clarita','https://seatgeek.com/the-texas-taco-tequila-and-music-festival-saturday-pass-tickets/santa-clarita-california-central-park-santa-clarita-1-2023-05-20-1-pm/music-festival/6032194','20-05-2023')"><img src="../img/share.png" width="20" height=20/></a></p>
+                <div class="card bg-dark border border-secondary mx-auto max-ht" onclick="open_tab('https://seatgeek.com/the-texas-taco-tequila-and-music-festival-saturday-pass-tickets/santa-clarita-california-central-park-santa-clarita-1-2023-05-20-1-pm/music-festival/6032194')">
+                  <img class="card-img-top" alt="event-img" src=https://seatgeek.com/images/performers-landscape/the-texas-taco-tequila-music-festival-151b1a/709954/huge.jpg>
+                  <div class="card-body">
+                    <h6 class="card-text text-white text-center">The Texas Taco Tequila &amp; Music Festival (Saturday Pass)</h6>
+                    <p class="card-text text-warning">&#128204; Central Park - Santa Clarita</p>
+                    <p class="card-text text-warning">&#128198; 20-05-2023</p>
+                  </div>
+                </div>
+                <button class="btn btn-danger my-4" onclick="remove_from_favorites('The Texas Taco Tequila &amp; Music Festival (Saturday Pass),2023-05-20T20:00:00')">Remove From Favorites</button>
+              </td>
+            
+          </tr>
+        
+      </table>
+    </div>
+  
+</div>
+"
+`;
