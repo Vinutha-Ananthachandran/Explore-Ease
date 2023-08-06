@@ -104,8 +104,8 @@ app.get('/seatgeek/:x',(req,res)=>{
 //server call to seatgeek api
 function callToSeatGeek(dates,res){
   let url='https://api.seatgeek.com/2/events?datetime_utc.gte='+dates[0]+'&datetime_utc.lte='+dates[1]+'&lat='+dates[2]+'&lon='+dates[3];
-  let client_id = 'MzM2MTA3MjN8MTY4Mzg3NjU1Ny40NDYyMjY2';
-  let client_secret = '12f7446c216703173bcf8c4e5384daa755fdc322c827fbc0f05c8e7558b1313e';
+  let client_id = '*';
+  let client_secret = '*';
   const getSeatGeekResult = async() =>{
     try{
       return await axios.get(url,{
@@ -142,7 +142,7 @@ app.get('/bizsearch/:x',(req,res) => {
 //server call to yelp api
 function callToYelpApi(lat,long,term,cat,res){
     let url = 'https://api.yelp.com/v3/businesses/search?term='+term+'&latitude='+lat+'&longitude='+long+'&categories='+cat+'&radius=16093&limit=10';
-    let yelpKey = 'CybJp4vrG19COqSorVyriOa_ikx4NVUZ84XToSPjMWZ99Sr8fXzHe-qZ2GveMcwjPkVyaiZaacdEF4kwUx8an_569M-4YxJYiUcf1gb1eynOOPv8upuocMFsEy8_Y3Yx';
+    let yelpKey = '*';
     let authToken = 'Bearer '+yelpKey;
     const getYelpResult = async() =>{
       try{
@@ -173,7 +173,7 @@ function callToYelpApi(lat,long,term,cat,res){
 //call to yelp reviews api
 app.get('/reviews/:x',(req,res)=>{
   let revUrl = 'https://api.yelp.com/v3/businesses/'+req.params.x+'/reviews';
-  let yelpKey = 'CybJp4vrG19COqSorVyriOa_ikx4NVUZ84XToSPjMWZ99Sr8fXzHe-qZ2GveMcwjPkVyaiZaacdEF4kwUx8an_569M-4YxJYiUcf1gb1eynOOPv8upuocMFsEy8_Y3Yx';
+  let yelpKey = '*';
   let authToken = 'Bearer '+yelpKey;
   const getYelpReview = async() =>{
     try{
@@ -198,8 +198,8 @@ app.get('/reviews/:x',(req,res)=>{
 
 app.get("/recsearch/:x",(req,res)=>{
   let rec_inp = req.params.x.split(",");
-  let client_id = 'MzM2MTA3MjN8MTY4Mzg3NjU1Ny40NDYyMjY2';
-  let client_secret = '12f7446c216703173bcf8c4e5384daa755fdc322c827fbc0f05c8e7558b1313e';
+  let client_id = '*';
+  let client_secret = '*';
     let url='https://api.seatgeek.com/2/recommendations?events.id='+rec_inp[0]+'&postal_code='+rec_inp[1]+'&datetime_utc.gte='+rec_inp[2]+'&client_id='+client_secret;
     const getSeatGeekRecommendations = async() =>{
       try{
@@ -239,7 +239,7 @@ app.get("/recsearch/:x",(req,res)=>{
 app.get('/attractions/:x',(req,res)=>{
   attractions_arr = [];
   if(req.params.x[0] != '+'){
-    const google_api_key = 'AIzaSyASbUA5whItqPIrzjqJfXN50OdOr8KZmlk';
+    const google_api_key = '*';
     let base_url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+req.params.x+'&language=en&key='+google_api_key;
     const photo_url = 'https://maps.googleapis.com/maps/api/place/photo?photoreference=';
     const photo_end_url = '&sensor=false&maxheight=300&maxwidth=200&key=';
